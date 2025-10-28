@@ -1,0 +1,37 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Criação de uma plataforma de recomendações curriculares que leve em conta a realidade socioeconômica local, e também serve de ponto de busca de empregos.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devsgafanhotos/EduNexus-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devsgafanhotos/EduNexus-api/issues"
+  },
+  "homepage": "https://github.com/devsgafanhotos/EduNexus-api#readme",
+  "dependencies": {
+    "argon2": "^0.44.0",
+    "axios": "^1.13.0",
+    "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.3",
+    "nodemon": "^3.1.10",
+    "sequelize-auto": "^0.8.8"
+  }
+}
