@@ -40,8 +40,27 @@ app.use(express.json());
 const { router } = require("./routes");
 app.use(router);
 */
-app.get("/", (req, res) => {
-    res.json({ message: "Ok" });
+const supabase = require("./config/supabaseClient");
+app.get("/", async (req, res) => {
+    const data = await supabase.from("trabalhos").select("*");
+
+    //if (error) return res.status(500).json({ error: error.message });
+
+    const dataC= await supabase
+        .from("usuarios")
+        .insert([
+            {
+                email: "Hemail",
+                nome: "Hermenegildo",
+                localizacao: "Uíge",
+                competencias: "Jogar bola",
+            },
+        ]);
+
+    //if (error2) return res.status(500).json({ error: error.message });
+
+    console.log(data, dataC);
+    res.json({ data: data });
 });
 
 /**
