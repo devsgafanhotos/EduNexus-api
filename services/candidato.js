@@ -166,8 +166,6 @@ class candidatoServices {
             res.clearCookie("refresh_token", {
                 httpOnly: true,
                 secure: true, // true se estiver em https
-                sameSite: "nome", // ou 'Lax' dependendo do seu caso
-                path: "/", // importante para que limpe em todas as rotas
             });
 
             return {
