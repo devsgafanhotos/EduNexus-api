@@ -140,7 +140,7 @@ class candidatoServices {
         } catch (error) {
             return {
                 success: false,
-                message: "Erro ao cadastrar candidato",
+                message: "Erro ao efeituar login",
                 errors: `${error}`,
             };
         }
