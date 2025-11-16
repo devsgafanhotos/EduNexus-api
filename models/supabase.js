@@ -127,7 +127,7 @@ const token_model = {
     async delete(condition) {
         try {
             const token_deletado = await models.tokens.destroy({
-            where: {condition},
+            where: condition,
             row: true,
         });
 

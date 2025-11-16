@@ -161,26 +161,19 @@ class candidatoServices {
     //select * from tokens where refresh_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6Imhlcm1lbmVnaWxkb3dpbHNvbjdAZ21haWwuY29tIiwibm9tZSI6IkhlcmVtZW5lZ2lsZG8gV2lsc29uIn0sImlhdCI6MTc2MzMwMjYyMiwiZXhwIjoxNzYzOTA3NDIyfQ.3mPixn4t9bfrcM32Ltjk33So6AwhJT5Z4OpIUv-WKS0";
     async logoutCandidato(req, res) {
         try {
+            const { user } = req.body;
             const refresh_token = req.cookies.refresh_token;
 
-            let user;
-            jwt.verify(
-                refresh_token,
-                REFRESH_TOKEN_SECRET,
-                (err, decodedUser) => {
-                    user = decodedUser;
-                }
-            );
-
-            let response;
             if (user) {
-                response = token_model.delete({
+                token_model.delete({
                     id_candidato: user.id,
                 });
             } else {
-                response = token_model.delete({
-                    refresh_token: refresh_token,
-                });
+                if (refresh_token) {
+                    token_model.delete({
+                        refresh_token: refresh_token,
+                    });
+                }
             }
 
             res.clearCookie("refresh_token", {
@@ -190,7 +183,7 @@ class candidatoServices {
 
             return {
                 success: true,
-                rs: refresh_token,
+                rs: user,
                 message: "Logout...",
             };
         } catch (error) {
