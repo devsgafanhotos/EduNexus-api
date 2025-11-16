@@ -15,7 +15,7 @@ dotenv.config();
  */
 const cors = require("cors");
 app.use(cors({
-    origin: process.env.VITE_APP_URL,
+    origin: process.env.APP_URL,
     credentials: true
 }));
 
