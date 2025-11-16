@@ -44,13 +44,13 @@ class candidatoServices {
 
             return {
                 success: true,
-                message: "Candidato criado com sucesso!",
+                message: "Cadastro feito com sucesso!",
                 usuario: response,
             };
         } catch (error) {
             return {
                 success: false,
-                message: "Erro ao cadastrar candidato",
+                message: "Erro ao efeituar cadastro",
                 errors: `${error}`,
             };
         }

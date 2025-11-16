@@ -3,7 +3,20 @@ const Sequelize = require("sequelize");
 /**
  * @description LÓGICA PARA CONECTARMO-NOS AO BANCO DE DADOS E VERIFICARMOS O STATUS DA CONEXÃO
  */
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+const sequelize = new Sequelize(
+  process.env.DATABASE_URL,
+  {
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // ignora certificado autoassinado
+      },
+    },
+    logging: false, // opcional
+  }
+);
+
 function conectDB() {
     return sequelize
         .authenticate()
