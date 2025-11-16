@@ -158,10 +158,7 @@ class candidatoServices {
     async logoutCandidato(req, res) {
         try {
             const refresh_token = req.cookies.refresh_token;
-
-            if (refresh_token) {
-                token_model.delete({ refresh_token: refresh_token });
-            }
+            const res = token_model.delete({ refresh_token: refresh_token });
 
             res.clearCookie("refresh_token", {
                 httpOnly: true,
@@ -170,6 +167,7 @@ class candidatoServices {
 
             return {
                 success: true,
+                rs: res,
                 message: "Logout...",
             };
         } catch (error) {
