@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: true
     },
+    telefone: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
     email: {
       type: DataTypes.STRING(150),
       allowNull: true
@@ -23,10 +27,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
-    },
-    telefone: {
-      type: DataTypes.STRING(20),
-      allowNull: true
     }
   }, {
     sequelize,

@@ -78,7 +78,7 @@ const candidato_model = {
     async select(condition) {
         const candidatos_encontrados = await models.candidato.findAll({
             where: condition,
-            row: true,
+            raw: true,
         });
 
         return candidatos_encontrados;
@@ -86,7 +86,7 @@ const candidato_model = {
     async selectOne(condition) {
         const candidatos_encontrados = await models.candidato.findOne({
             where: condition,
-            row: true,
+            raw: true,
         });
 
         return candidatos_encontrados;
@@ -127,14 +127,14 @@ const token_model = {
     async delete(condition) {
         try {
             const token_deletado = await models.tokens.destroy({
-            where: condition,
-            row: true,
-        });
+                where: condition,
+                row: true,
+            });
 
-        return token_deletado;
+            return token_deletado;
         } catch (error) {
             console.log(`\n\nErro interno ao efeituar logout... ${error}.\n`);
-            
+
             return {
                 success: false,
                 message: "Erro ao fazer logout",
@@ -144,4 +144,50 @@ const token_model = {
     },
 };
 
-module.exports = { candidato_model, token_model };
+const iteracoes_model = {
+    async create(data) {
+        const res = await models.iteracoes.create(data);
+        return res;
+    },
+
+    async select(condition) {
+        const iteracoes_encontradas = await models.iteracoes.findAll({
+            where: condition,
+            row: true
+        });
+
+        return iteracoes_encontradas;
+    },
+
+    async selectOne(condition) {
+        const iteracoes_encontradas = await models.iteracoes.findOne({
+            where: condition,
+            row: true,
+        });
+
+        return iteracoes_encontradas;
+    },
+    update(data) {
+        return "update";
+    },
+    async delete(condition) {
+        try {
+            const token_deletado = await models.iteracoes.destroy({
+                where: condition,
+                row: true,
+            });
+
+            return token_deletado;
+        } catch (error) {
+            console.log(`\n\nErro interno ao efeituar logout... ${error}.\n`);
+
+            return {
+                success: false,
+                message: "Erro ao fazer logout",
+                errors: `${error}`,
+            };
+        }
+    },
+};
+
+module.exports = { candidato_model, token_model, iteracoes_model };

@@ -126,6 +126,8 @@ class candidatoServices {
              * @description NESTE TRECHO GURDAMOS O TOKE DE REFRESH NUM COOKIE
              */
             const COOKIE_EXPIRATION = process.env.COOKIE_EXPIRATION;
+            console.log(REFRESH_TOKEN);
+            
             res.cookie("refresh_token", REFRESH_TOKEN, {
                 httpOnly: true,
                 secure: true,
@@ -135,7 +137,7 @@ class candidatoServices {
 
             return {
                 success: true,
-                message: "Login feito com sucesso!",
+                message: "Seja bem-vindo!",
                 user: responseEmail.data,
                 access_token: ACCESS_TOKEN,
             };
@@ -184,7 +186,7 @@ class candidatoServices {
             return {
                 success: true,
                 rs: user,
-                message: "Logout...",
+                message: "Volte sempre...",
             };
         } catch (error) {
             return {

@@ -17,3 +17,13 @@ create table tokens(
 
     foreign key (id_candidato) references candidato(id)
 );
+
+CREATE TABLE iteracoes (
+    id SERIAL PRIMARY KEY,
+    id_candidato INTEGER,
+    titulo TEXT,
+    recomendacao JSON,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_candidato
+        FOREIGN KEY (id_candidato) REFERENCES candidato(id)
+);

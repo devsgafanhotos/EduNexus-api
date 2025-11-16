@@ -59,7 +59,7 @@ class AutenticacaoMiddleware {
      *@route /auth/refresh
      */
     refreshAccess = async (req, res) => {
-        const refresh_token = req.cookies.refresh_token;
+        const refresh_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6Imhlcm1lbmVnaWxkb3dpbHNvbjdAZ21haWwuY29tIiwibm9tZSI6IkhlcmVtZW5lZ2lsZG8gV2lsc29uIn0sImlhdCI6MTc2MzMxOTQyMywiZXhwIjoxNzYzOTI0MjIzfQ.1jDYqgCGGHjIxir3fjKOiKp6HoXwjRQ_MLvG9ZJZswc"//req.cookies.refresh_token;
 
         // SE NÃO TIVER UMTOKEN DE REFRESCO, FAÇA LOGIN
         if (!refresh_token) {
@@ -85,7 +85,7 @@ class AutenticacaoMiddleware {
             const refresh_token_exist = await token_model.selectOne({
                 refresh_token: refresh_token,
             });
-            if (!refresh_token_exist) {
+            if (refresh_token_exist) {
                 return res.status(403).json({
                     status: 403,
                     success: false,

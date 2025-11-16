@@ -1,33 +1,41 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('usuarios', {
+  return sequelize.define('iteracoes', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nome: {
-      type: DataTypes.STRING(100),
+    id_candidato: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'candidato',
+        key: 'id'
+      }
+    },
+    titulo: {
+      type: DataTypes.TEXT,
       allowNull: true
     },
-    email: {
-      type: DataTypes.STRING(150),
+    recomendacao: {
+      type: DataTypes.JSON,
       allowNull: true
     },
-    criado_em: {
+    data_cadastro: {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
-    tableName: 'usuarios',
+    tableName: 'iteracoes',
     schema: 'public',
     timestamps: false,
     indexes: [
       {
-        name: "usuarios_pkey",
+        name: "iteracoes_pkey",
         unique: true,
         fields: [
           { name: "id" },

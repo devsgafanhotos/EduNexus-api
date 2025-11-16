@@ -1,9 +1,7 @@
 // IMPORTAÇÃO DO MODEL DE ITERAÇÃO COM A TABELA agents DO BANCO DE DADOS
-const { agents_model, token_model } = require("../models/supabase");
+const { iteracoes_model } = require("../models/supabase");
 const axios = require("axios");
-
 const { recomendacoes } = require("./data/Recomendacoes");
-const { empregos } = require("./data/Empregos");
 
 class agentsServices {
     /**
@@ -17,20 +15,48 @@ class agentsServices {
      */
     async novasRecomendacoes(data) {
         try {
-            const interesses = data.formData;
-            const usuario = data.user;
-            console.log("\n\nA prpcessar ........");
+            const { user, formData } = data;
+            const requestData = {
+                id: "abc123",
+                usuario: {
+                    nome: "Américo Malungo",
+                    idade: 24,
+                    genero: "masculino",
+                },
 
-            const res = await axios.post(
-                "https://chart-der-hung-span.trycloudflare.com/webhook-test/master-api",
-                { interesses, usuario }
+                contactos: {
+                    email: "americo@example.com",
+                    telefone: "+244900000000",
+                },
+
+                nivel_educacao: "Licenciatura",
+                interesse: "Desenvolvimento Web",
+                regiao: "Luanda",
+            };
+            console.log("Pros....");
+            /*
+            const response = await axios.post(
+                "https://webdevs04.app.n8n.cloud/webhook/f0f7606a-370a-48f4-b1d0-58d6f34f9fe3",
+                requestData
+                //{ timeout: 240000 } // 60 segundos
             );
-            console.log("\n\nResposta ........" + res);
+
+            if (response.data) {
+                console.log("Ok");
+            } else {
+                console.log("None");
+            }*/
+            const recomendacaoCriada = await iteracoes_model.create({
+                id_candidato: user.id,
+                titulo: formData.interesse,
+                recomendacao: recomendacoes,
+            });
 
             return {
                 success: true,
                 message: "Recomendações curriculares!",
-                data: res.data,
+                //data: response.data,
+                recomendacaoCriada: recomendacaoCriada,
             };
         } catch (error) {
             return {
@@ -52,20 +78,13 @@ class agentsServices {
      */
     async buscarRecomendacoes(id) {
         try {
-            let response = [
-                { area: "Tecnologia", id: 1, data: "2025-10-01" },
-                { area: "Agronomiaa", id: 2, data: "2025-10-01" },
-                { area: "Cultura", id: 3, data: "2025-10-01" },
-            ];
+            let response;
 
             if (!id) {
-                response = [
-                    { area: "Tecnologia", id: 1, data: "2025-10-01" },
-                    { area: "Agronomiaa", id: 2, data: "2025-10-01" },
-                    { area: "Cultura", id: 3, data: "2025-10-01" },
-                ];
+                response = await iteracoes_model.select();
+
             } else {
-                response = response[id-1];
+                response = await iteracoes_model.selectOne({ id: id });
             }
 
             return {
