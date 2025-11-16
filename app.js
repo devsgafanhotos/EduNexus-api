@@ -14,10 +14,14 @@ dotenv.config();
  * @description CONFIGURAMOS O CORS PARA QUE O SERVIDOR ACEITE REQUISIÇÕES DE OUTOS DOMÍNEOS
  */
 const cors = require("cors");
-app.use(cors({
-    origin: process.env.APP_URL,
-    credentials: true
-}));
+app.use(
+    cors({
+        origin: process.env.APP_URL,
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
 
 /**
  * @description FAZEMOS COM QUE A APP POSSA TRABALHAR COM COOKIES
@@ -48,5 +52,5 @@ app.listen(3000, (error) => {
     }
     console.log(
         `\nServidor rodando em: http://localhost:${process.env.SERVER_PORT}`
-    ); 
+    );
 });

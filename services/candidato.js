@@ -126,7 +126,8 @@ class candidatoServices {
             const COOKIE_EXPIRATION = process.env.COOKIE_EXPIRATION;
             res.cookie("refresh_token", REFRESH_TOKEN, {
                 httpOnly: true,
-                sameSite: "lax",
+                secure: true,
+                sameSite: "none",
                 maxAge: COOKIE_EXPIRATION,
             });
 
