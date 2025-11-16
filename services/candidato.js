@@ -1,5 +1,7 @@
 // IMPORTAÇÃO DO MODEL DE ITERAÇÃO COM A TABELA candidato DO BANCO DE DADOS
 const { candidato_model, token_model } = require("../models/supabase");
+const jwt = require("jsonwebtoken");
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
 const usuarioServices = require("./usuario");
 
@@ -155,13 +157,31 @@ class candidatoServices {
      *      errors: undefined
      * }} - Objecto contendo o novo candidato criado(em caso de sucesso), ou mensagens de erro em caso de insucesso.
      */
+
+    //select * from tokens where refresh_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6Imhlcm1lbmVnaWxkb3dpbHNvbjdAZ21haWwuY29tIiwibm9tZSI6IkhlcmVtZW5lZ2lsZG8gV2lsc29uIn0sImlhdCI6MTc2MzMwMjYyMiwiZXhwIjoxNzYzOTA3NDIyfQ.3mPixn4t9bfrcM32Ltjk33So6AwhJT5Z4OpIUv-WKS0";
     async logoutCandidato(req, res) {
         try {
             const refresh_token = req.cookies.refresh_token;
 
-            const response = token_model.delete({
-                refresh_token: refresh_token,
-            });
+            let user;
+            jwt.verify(
+                refresh_token,
+                REFRESH_TOKEN_SECRET,
+                (err, decodedUser) => {
+                    user = decodedUser;
+                }
+            );
+
+            let response;
+            if (user) {
+                response = token_model.delete({
+                    id_candidato: user.id,
+                });
+            } else {
+                response = token_model.delete({
+                    refresh_token: refresh_token,
+                });
+            }
 
             res.clearCookie("refresh_token", {
                 httpOnly: true,
