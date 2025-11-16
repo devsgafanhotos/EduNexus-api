@@ -24,7 +24,7 @@ router.use("/agents", agentsRoutes);
 router.get("/bot", (req, res) => {
     const { key } = req.query;
     const users = [];
-    if ((key !== "botpress.com1234")) {
+    if (key !== "botpress.com1234") {
         return res.status(403).json({
             msg: "Não autorizado",
         });

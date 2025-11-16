@@ -159,10 +159,16 @@ class candidatoServices {
         try {
             const refresh_token = req.cookies.refresh_token;
 
-            res.clearCookie("refresh_token");
             if (refresh_token) {
                 token_model.delete({ refresh_token: refresh_token });
             }
+
+            res.clearCookie("refresh_token", {
+                httpOnly: true,
+                secure: true, // true se estiver em https
+                sameSite: "nome", // ou 'Lax' dependendo do seu caso
+                path: "/", // importante para que limpe em todas as rotas
+            });
 
             return {
                 success: true,
