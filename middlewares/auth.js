@@ -94,18 +94,19 @@ class AutenticacaoMiddleware {
             }
 
             //SE TUDO ESTÁ OK, ENTÃO GERAMOS UM NOVO TOKEN DE ACESSO
-            const ACCESS_TOKEN = await usuarioServices.createTokenACCESS(user);
+            const ACCESS_TOKEN = await usuarioServices.createTokenACCESS(
+                user.payload
+            );
 
             return res.status(200).json({
                 status: 200,
                 success: true,
-                user: user,
+                user: user.payload,
                 access_token: ACCESS_TOKEN,
                 message: "Token renovado!",
             });
         });
     };
-    
 
     /**
      *@description Verificação se o usuario pode seguir para a próxima rota.

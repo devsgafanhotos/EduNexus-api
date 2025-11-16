@@ -4,6 +4,7 @@ create database plataforma;
 CREATE TABLE candidato (
   id SERIAL PRIMARY KEY,
   nome VARCHAR(100),
+  telefone VARCHAR(100),
   email VARCHAR(150),
   senha varchar(1000),
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP

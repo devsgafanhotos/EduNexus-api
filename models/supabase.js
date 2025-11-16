@@ -101,12 +101,12 @@ const candidato_model = {
 
 const token_model = {
     async create(data) {
-        const res = await models.token.create(data);
+        const res = await models.tokens.create(data);
         return res;
     },
 
     async select(condition) {
-        const token_encontrado = await models.token.findAll({
+        const token_encontrado = await models.tokens.findAll({
             where: condition,
             row: true,
         });
@@ -114,7 +114,7 @@ const token_model = {
         return token_encontrado;
     },
     async selectOne(condition) {
-        const token_encontrado = await models.token.findOne({
+        const token_encontrado = await models.tokens.findOne({
             where: condition,
             row: true,
         });
@@ -126,7 +126,7 @@ const token_model = {
     },
     async delete(condition) {
         try {
-            const token_deletado = await models.token.destroy({
+            const token_deletado = await models.tokens.destroy({
             where: {condition},
             row: true,
         });

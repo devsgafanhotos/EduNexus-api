@@ -38,13 +38,14 @@ class candidatoServices {
             const response = await candidato_model.create({
                 nome: novo_candidato.nome,
                 email: novo_candidato.email,
+                telefone: novo_candidato.telefone,
                 senha: senhaHash,
             });
 
             return {
                 success: true,
                 message: "Candidato criado com sucesso!",
-                data: response,
+                usuario: response,
             };
         } catch (error) {
             return {
@@ -101,6 +102,7 @@ class candidatoServices {
             const payload = {
                 id: responseEmail.data.id,
                 email: responseEmail.data.email,
+                nome: responseEmail.data.nome,
             };
             const ACCESS_TOKEN = await usuarioServices.createTokenACCESS(
                 payload

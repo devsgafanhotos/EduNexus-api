@@ -15,4 +15,10 @@ router.use("/candidato", candidatoRoutes);
 const authRoutes = require("./auth");
 router.use("/auth", authRoutes);
 
+/**
+ * @description INTEGRAÇÃO DA ROTA DE autenticação AO ROTEADOR PRINCIPAL
+ */
+const agentsRoutes = require("./agents");
+router.use("/agents", agentsRoutes);
+
 module.exports = { router };
