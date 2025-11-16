@@ -21,4 +21,18 @@ router.use("/auth", authRoutes);
 const agentsRoutes = require("./agents");
 router.use("/agents", agentsRoutes);
 
+router.get("/bot", (req, res) => {
+    const { key } = req.query;
+    const users = [];
+    if ((key !== "botpress.com1234")) {
+        return res.status(403).json({
+            msg: "Não autorizado",
+        });
+    }
+    return res.status(200).json({
+        msg: "Plataforma de busca de empregos",
+        usuarios: users,
+    });
+});
+
 module.exports = { router };
