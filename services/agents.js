@@ -16,46 +16,62 @@ class agentsServices {
     async novasRecomendacoes(data) {
         try {
             const { user, formData } = data;
-            const requestData = {
-                id: "abc123",
+            const requestObject = {
+                sessionId: user.id,
                 usuario: {
-                    nome: "Américo Malungo",
-                    idade: 24,
-                    genero: "masculino",
+                    nome: user.nome,
                 },
 
                 contactos: {
-                    email: "americo@example.com",
-                    telefone: "+244900000000",
+                    email: user.email,
+                    telefone: user.telefone,
                 },
 
-                nivel_educacao: "Licenciatura",
-                interesse: "Desenvolvimento Web",
-                regiao: "Luanda",
+                nivel_educacao: formData.nivel_educacao,
+                interesse: formData.interesse,
+                regiao: formData.regiao,
             };
-            console.log("Pros....");
-            /*
+
             const response = await axios.post(
-                "https://webdevs04.app.n8n.cloud/webhook/f0f7606a-370a-48f4-b1d0-58d6f34f9fe3",
-                requestData
-                //{ timeout: 240000 } // 60 segundos
+                "https://webdevs04.app.n8n.cloud/webhook/e7c3d084-b9e6-4ee2-b763-3774c2b6bfc5",
+                requestObject,
+                { timeout: 240000 } // 4 minutos
             );
 
-            if (response.data) {
-                console.log("Ok");
-            } else {
-                console.log("None");
-            }*/
+            return {
+                success: true,
+                message: "Recomendações curriculares!",
+                recomendacaoCriada: response.data,
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: "Erro ao buscar recomendações",
+                errors: `${error}`,
+            };
+        }
+    }
+
+    /**
+     * @param {Number} id - ID do agents desejado
+     * @returns {{
+     *      success: Boolean,
+     *      message: String,
+     *      data: JSON,
+     *      errors: undefined
+     * }} - Objecto contendo o agents desejado(em caso de sucesso), ou mensagens de erro em caso de insucesso.
+     */
+    async createRecomendacoes(data) {
+        try {
             const recomendacaoCriada = await iteracoes_model.create({
-                id_candidato: user.id,
-                titulo: formData.interesse,
-                recomendacao: recomendacoes,
+                id_candidato: data.id,
+                titulo: data.interesse,
+                recomendacao: data.recomendacao,
             });
 
             return {
                 success: true,
                 message: "Recomendações curriculares!",
-                //data: response.data,
                 recomendacaoCriada: recomendacaoCriada,
             };
         } catch (error) {
@@ -82,7 +98,6 @@ class agentsServices {
 
             if (!id) {
                 response = await iteracoes_model.select();
-
             } else {
                 response = await iteracoes_model.selectOne({ id: id });
             }

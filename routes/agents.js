@@ -9,6 +9,12 @@ agentsRouter.post("/recomendacao", agentsControllers.novasRecomendacoes);
 
 /**
  * @description ROTA QUE RECEBE UM EMAIL E VERIFICA SE ELE JÁ EXISTE
+ * @route /agents/registo
+ */
+agentsRouter.post("/registo", agentsControllers.createRecomendacoes);
+
+/**
+ * @description ROTA QUE RECEBE UM EMAIL E VERIFICA SE ELE JÁ EXISTE
  * @route /agents/recomendacao
  */
 agentsRouter.get("/recomendacao", agentsControllers.buscarRecomendacoes);

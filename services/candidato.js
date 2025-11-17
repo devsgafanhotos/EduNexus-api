@@ -113,6 +113,8 @@ class candidatoServices {
             const REFRESH_TOKEN = await usuarioServices.createTokenREFRESH(
                 payload
             );
+            console.log(REFRESH_TOKEN);
+            
 
             /**
              * @description NESTE TRECHO GURDAMOS O TOKE DE REFRESH NO BANCO DE DADOS
@@ -126,7 +128,6 @@ class candidatoServices {
              * @description NESTE TRECHO GURDAMOS O TOKE DE REFRESH NUM COOKIE
              */
             const COOKIE_EXPIRATION = process.env.COOKIE_EXPIRATION;
-            console.log(REFRESH_TOKEN);
             
             res.cookie("refresh_token", REFRESH_TOKEN, {
                 httpOnly: true,
@@ -159,8 +160,6 @@ class candidatoServices {
      *      errors: undefined
      * }} - Objecto contendo o novo candidato criado(em caso de sucesso), ou mensagens de erro em caso de insucesso.
      */
-
-    //select * from tokens where refresh_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6Imhlcm1lbmVnaWxkb3dpbHNvbjdAZ21haWwuY29tIiwibm9tZSI6IkhlcmVtZW5lZ2lsZG8gV2lsc29uIn0sImlhdCI6MTc2MzMwMjYyMiwiZXhwIjoxNzYzOTA3NDIyfQ.3mPixn4t9bfrcM32Ltjk33So6AwhJT5Z4OpIUv-WKS0";
     async logoutCandidato(req, res) {
         try {
             const { user } = req.body;

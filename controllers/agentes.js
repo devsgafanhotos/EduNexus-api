@@ -43,6 +43,45 @@ class agentsControllers {
         }
     };
 
+    createRecomendacoes = async (req, res) => {
+        try {
+            const data = req.body;
+            const response = await agentsServices.createRecomendacoes(data);
+
+            // Em caso de insucesso
+            if (!response.success) {
+                // Se tiver informações de erro é porque o erro é interno: 500
+                if (response.errors) {
+                    console.log(
+                        `\n\n${response.message}... ${response.errors}.\n`
+                    );
+
+                    return res.status(500).json({
+                        status: 500,
+                        ...response,
+                    });
+                }
+            }
+
+            // Se chegamos até aqui é porque tudo tá OK
+            return res.status(200).json({
+                status: 200,
+                ...response,
+            });
+        } catch (error) {
+            // Em caso de um outro erro inesperado tratamos aqui.
+            console.log(
+                `\n\nErro interno ao buscar recomendações... ${error}.\n`
+            );
+            return res.status(500).json({
+                status: 500,
+                success: false,
+                message: "Erro ao buscar recomendações",
+                errors: `${error}`,
+            });
+        }
+    };
+
     buscarRecomendacoes = async (req, res) => {
         try {
             const { r } = req.query;

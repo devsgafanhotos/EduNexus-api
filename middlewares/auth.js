@@ -59,7 +59,8 @@ class AutenticacaoMiddleware {
      *@route /auth/refresh
      */
     refreshAccess = async (req, res) => {
-        const refresh_token = req.cookies.refresh_token;
+        const refresh_token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6Imhlcm1lbmVnaWxkb3dpbHNvbjdAZ21haWwuY29tIiwibm9tZSI6IkhlcmVtZW5lZ2lsZG8gV2lsc29uIn0sImlhdCI6MTc2MzM0NzU5MSwiZXhwIjoxNzYzOTUyMzkxfQ.YJamY-3QIu5tx1nc3kIv6pD1IC3W3JbK4e7PShwgCEo"; //req.cookies.refresh_token;
 
         // SE NÃO TIVER UMTOKEN DE REFRESCO, FAÇA LOGIN
         if (!refresh_token) {
@@ -107,39 +108,6 @@ class AutenticacaoMiddleware {
             });
         });
     };
-
-    /**
-     *@description Verificação se o usuario pode seguir para a próxima rota.
-     
-    authanticateAcces = (req, res, next) => {
-        const access_token = req.headers["authorization"]?.split(" ")[1];
-
-        // SE NÃO TIVER UMTOKEN DE ACESSO, FAÇA LOGIN
-        if (!access_token) {
-            return res.status(403).json({
-                status: 403,
-                success: false,
-                message: "Início de sessão obrigatório!",
-            });
-        }
-
-        // SETIVER UM TOKEN DE ACESSO, VERIFICAMO-LO COM A CHAVE.
-        jwt.verify(access_token, ACCESS_TOKEN_SECRET, (err, user) => {
-            //SE O TOKEN DE ACESSO TIVER EXPIRADO, avismos que o token espirou
-            if (err) {
-                return res.status(401).json({
-                    status: 401,
-                    success: false,
-                    message: "Token expirado!",
-                });
-            }
-
-            // SE O TOKEN DE ACESSO ESTIVER EM DIA, ENTÃO OK.
-            next();
-        });
-    };
-
-    */
 }
 
 module.exports = new AutenticacaoMiddleware();
