@@ -84,9 +84,9 @@ class agentsControllers {
 
     buscarRecomendacoes = async (req, res) => {
         try {
-            const { r } = req.query;
+            const { r, user } = req.query;
 
-            const response = await agentsServices.buscarRecomendacoes(r);
+            const response = await agentsServices.buscarRecomendacoes(user, r);
 
             // Em caso de insucesso
             if (!response.success) {

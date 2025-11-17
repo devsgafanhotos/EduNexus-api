@@ -113,7 +113,6 @@ class candidatoServices {
             const REFRESH_TOKEN = await usuarioServices.createTokenREFRESH(
                 payload
             );
-            console.log(REFRESH_TOKEN);
             
 
             /**

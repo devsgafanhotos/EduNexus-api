@@ -2,6 +2,7 @@
 const { iteracoes_model } = require("../models/supabase");
 const axios = require("axios");
 const { recomendacoes } = require("./data/Recomendacoes");
+const { Op, where, col } = require("sequelize");
 
 class agentsServices {
     /**
@@ -92,14 +93,16 @@ class agentsServices {
      *      errors: undefined
      * }} - Objecto contendo o agents desejado(em caso de sucesso), ou mensagens de erro em caso de insucesso.
      */
-    async buscarRecomendacoes(id) {
+    async buscarRecomendacoes(user, id) {
         try {
             let response;
 
             if (!id) {
-                response = await iteracoes_model.select();
+                response = await iteracoes_model.select({ id_candidato: user });
             } else {
-                response = await iteracoes_model.selectOne({ id: id });
+                response = await iteracoes_model.selectOne({
+                    [Op.and]: [where(col("id_candidato"), user), { id: id }],
+                });
             }
 
             return {
